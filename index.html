@@ -3,162 +3,410 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CosplayAI – Early Access</title>
-    <meta name="description" content="Transform outfits, poses, backgrounds and expressions while preserving identity with CosplayAI.">
+    <title>CosplayAI – Unleash Your Identity</title>
+    <meta name="description" content="The ultimate AI tool for cosplayers and fashion enthusiasts. Transform outfits, poses, and backgrounds while preserving perfect identity consistency.">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
 
     <style>
-        /* Reset & Base Styles */
-        body {
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background: #ffffff;
+        /* --- VARIABLES & RESET --- */
+        :root {
+            --bg-color: #050505;
+            --card-bg: rgba(20, 20, 20, 0.6);
+            --text-main: #ffffff;
+            --text-muted: #a1a1aa;
+            --accent-gradient: linear-gradient(135deg, #FF2E93 0%, #8A2BE2 100%);
+            --accent-glow: rgba(138, 43, 226, 0.4);
+            --border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            color: #111;
-            -webkit-font-smoothing: antialiased;
         }
 
-        /* Layout */
-        .container {
-            max-width: 720px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        .section {
-            margin: 60px 0;
-            text-align: center;
-        }
-
-        /* Typography */
-        h1 {
-            font-size: 2.5rem;
-            margin-bottom: 16px;
-            letter-spacing: -0.03em;
-            line-height: 1.2;
-        }
-
-        h2 {
-            font-size: 1.8rem;
-            margin: 40px 0 16px;
-            letter-spacing: -0.02em;
-        }
-
-        p {
-            font-size: 1.1rem;
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            overflow-x: hidden;
             line-height: 1.6;
-            color: #444;
-            margin-bottom: 20px;
         }
 
-        /* Button */
+        /* --- BACKGROUND FX --- */
+        .ambient-light {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            background: 
+                radial-gradient(circle at 15% 50%, rgba(138, 43, 226, 0.08), transparent 25%),
+                radial-gradient(circle at 85% 30%, rgba(255, 46, 147, 0.08), transparent 25%);
+            z-index: -1;
+        }
+
+        /* --- LAYOUT UTILS --- */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .highlight {
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 800;
+        }
+
+        /* --- BUTTONS --- */
         .btn {
-            display: inline-block;
-            margin-top: 25px;
-            padding: 14px 32px;
-            background: #000;
-            color: #fff !important;
-            border-radius: 50px; /* Pill shape is more modern */
-            font-size: 1.05rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 16px 40px;
+            background: var(--accent-gradient);
+            color: white;
             font-weight: 600;
+            border-radius: 99px;
             text-decoration: none;
-            transition: transform 0.2s ease, background-color 0.2s ease;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 20px var(--accent-glow);
+            border: 1px solid rgba(255,255,255,0.2);
+            font-size: 1.1rem;
         }
 
         .btn:hover {
-            background: #333;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 0 35px var(--accent-glow);
         }
 
-        /* Images */
-        .feature-gif {
-            display: block;
-            margin: 24px auto 0;
-            max-width: 100%;
-            height: auto;
-            border-radius: 12px;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.08);
-            border: 1px solid #f0f0f0;
+        /* --- NAV --- */
+        nav {
+            padding: 24px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-weight: 800;
+            font-size: 1.5rem;
+            letter-spacing: -0.05em;
         }
 
-        /* Divider */
-        hr {
-            border: 0;
-            height: 1px;
-            background: #eee;
-            margin: 40px auto;
-            max-width: 200px;
-        }
-
-        /* Footer */
-        .footer {
+        /* --- HERO SECTION --- */
+        .hero {
             text-align: center;
+            padding: 100px 0 80px;
+            position: relative;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            line-height: 1.1;
+            margin-bottom: 24px;
+            letter-spacing: -0.03em;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto 40px;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 6px 16px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
+            border-radius: 50px;
+            font-size: 0.85rem;
+            color: #FF2E93;
+            margin-bottom: 24px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-weight: 600;
+        }
+
+        /* --- FEATURES GRID --- */
+        .features-container {
+            padding: 80px 0;
+        }
+
+        .feature-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            margin-bottom: 120px;
+            opacity: 0; /* For animation */
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+
+        .feature-row.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .feature-row.reverse {
+            direction: rtl; /* Flip order for zigzag effect */
+        }
+        
+        .feature-row.reverse .feature-text {
+            direction: ltr; /* Reset text direction */
+        }
+
+        .feature-text h2 {
+            font-size: 2.2rem;
+            margin-bottom: 16px;
+        }
+
+        .feature-text p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            margin-bottom: 24px;
+        }
+
+        .feature-tags span {
+            display: inline-block;
+            font-size: 0.8rem;
+            padding: 4px 12px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 6px;
+            margin-right: 8px;
+            color: #fff;
+            border: 1px solid var(--border-color);
+        }
+
+        /* --- MEDIA CONTAINER (PHONE MOCKUP LOOK) --- */
+        .media-wrapper {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            border: 1px solid var(--border-color);
+            background: #111;
+        }
+        
+        .media-wrapper::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            box-shadow: inset 0 0 0 1px rgba(255,255,255,0.1);
+            border-radius: 20px;
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .feature-gif {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+        
+        .media-wrapper:hover .feature-gif {
+            transform: scale(1.03);
+        }
+
+        /* --- CTA SECTION --- */
+        .cta-section {
+            text-align: center;
+            padding: 100px 20px;
+            background: linear-gradient(180deg, transparent 0%, rgba(138, 43, 226, 0.05) 100%);
+            border-top: 1px solid var(--border-color);
+        }
+
+        .cta-box {
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border-color);
+            padding: 60px 20px;
+            border-radius: 24px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            text-align: center;
+            padding: 40px;
+            color: #555;
             font-size: 0.9rem;
-            color: #888;
-            margin: 80px 0 40px;
-            border-top: 1px solid #f5f5f5;
-            padding-top: 40px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .feature-row { 
+                grid-template-columns: 1fr; 
+                gap: 40px; 
+                margin-bottom: 80px;
+            }
+            .feature-row.reverse { direction: ltr; }
+            .container { padding: 0 20px; }
         }
     </style>
 </head>
 <body>
 
+    <div class="ambient-light"></div>
+
     <div class="container">
         
+        <!-- Navigation -->
+        <nav>
+            <div class="logo">Cosplay<span class="highlight">AI</span></div>
+            <a href="YOUR_WAITLIST_LINK_HERE" class="btn" style="padding: 10px 24px; font-size: 0.9rem;">Waitlist</a>
+        </nav>
+
         <!-- Hero Section -->
-        <div class="section" style="margin-top: 100px;">
-            <h1>CosplayAI – Early Access</h1>
+        <header class="hero">
+            <div class="tag">Alpha Release Soon</div>
+            <h1>
+                Transform Reality.<br>
+                <span class="highlight">Preserve Identity.</span>
+            </h1>
             <p>
-                A simple and powerful AI tool to transform outfits, poses, backgrounds and expressions —
-                while perfectly preserving identity and realism.
+                The first AI editor built for Cosplay & Fashion. Swap outfits, rerender poses, and edit expressions without losing the facial details that make you, <strong>you</strong>.
             </p>
-            <p>
-                I’m building a lightweight app focused on fashion edits, virtual try-on
-                and creative transformations.
-            </p>
-
-            <!-- REMPLACE LE LIEN CI-DESSOUS PAR TON LIEN TALLY / TYPEFORM / GOOGLE FORM -->
+            
             <a class="btn" href="YOUR_WAITLIST_LINK_HERE" target="_blank">
-                Join the Waitlist 🚀
+                Join Early Access 🚀
             </a>
+            
+            <p style="font-size: 0.9rem; margin-top: 20px; color: #666;">
+                Limited spots available for the first beta wave.
+            </p>
+        </header>
+
+        <!-- Features -->
+        <div class="features-container">
+
+            <!-- Feature 1: Outfit -->
+            <div class="feature-row scroll-reveal">
+                <div class="feature-text">
+                    <h2>Limitless Wardrobe</h2>
+                    <p>
+                        Swap outfits instantly. Our engine understands fabric physics and lighting, ensuring the new clothes fit your body shape perfectly while keeping your face untouched.
+                    </p>
+                    <div class="feature-tags">
+                        <span>Generative Fill</span>
+                        <span>Texture Match</span>
+                        <span>Identity Safe</span>
+                    </div>
+                </div>
+                <div class="media-wrapper">
+                    <!-- Placeholder: Ensure your gif is in assets/outfit.gif -->
+                    <img src="assets/outfit.gif" class="feature-gif" alt="Outfit Replacement AI" loading="lazy" />
+                </div>
+            </div>
+
+            <!-- Feature 2: Pose (Reversed layout) -->
+            <div class="feature-row reverse scroll-reveal">
+                <div class="feature-text">
+                    <h2>Perfect Pose, Every Time</h2>
+                    <p>
+                        Got the perfect makeup but the wrong angle? Rerender your pose completely. Turn a static standing shot into a dynamic action pose without reshooting.
+                    </p>
+                    <div class="feature-tags">
+                        <span>Skeleton Tracking</span>
+                        <span>Proportion Lock</span>
+                    </div>
+                </div>
+                <div class="media-wrapper">
+                    <img src="assets/pose.gif" class="feature-gif" alt="Pose Transfer AI" loading="lazy" />
+                </div>
+            </div>
+
+            <!-- Feature 3: Background -->
+            <div class="feature-row scroll-reveal">
+                <div class="feature-text">
+                    <h2>Cinematic Worlds</h2>
+                    <p>
+                        Transport yourself from a bedroom wall to a cyberpunk city or a fantasy forest. The AI adapts the lighting and shadows on your character to match the new environment.
+                    </p>
+                    <div class="feature-tags">
+                        <span>Light Adaptation</span>
+                        <span>Depth Awareness</span>
+                    </div>
+                </div>
+                <div class="media-wrapper">
+                    <img src="assets/back.gif" class="feature-gif" alt="AI Background Changer" loading="lazy" />
+                </div>
+            </div>
+
+            <!-- Feature 4: Expression (Reversed) -->
+            <div class="feature-row reverse scroll-reveal">
+                <div class="feature-text">
+                    <h2>Emotion Control</h2>
+                    <p>
+                        Fine-tune your acting. Change a neutral look to a fierce battle cry or a subtle smile. Edits are microscopic to maintain photorealism.
+                    </p>
+                    <div class="feature-tags">
+                        <span>Micro-expressions</span>
+                        <span>High Fidelity</span>
+                    </div>
+                </div>
+                <div class="media-wrapper">
+                    <img src="assets/face.gif" class="feature-gif" alt="Facial Expression Editor" loading="lazy" />
+                </div>
+            </div>
+
         </div>
-
-        <hr>
-
-        <!-- Feature: Outfit Replace -->
-        <div class="section">
-            <h2>Outfit Replace</h2>
-            <p>Swap clothing cleanly while keeping body shape, face, lighting and identity intact.</p>
-            <img src="assets/outfit.gif" class="feature-gif" alt="Outfit Replace Demo" loading="lazy" />
-        </div>
-
-        <!-- Feature: Pose Rerender -->
-        <div class="section">
-            <h2>Pose Rerender</h2>
-            <p>Change the pose while keeping the same person, same style and same proportions.</p>
-            <img src="assets/pose.gif" class="feature-gif" alt="Pose Rerender Demo" loading="lazy" />
-        </div>
-
-        <!-- Feature: Background Changer -->
-        <div class="section">
-            <h2>Background Changer</h2>
-            <p>Replace the background with clean, consistent results that match lighting and shadows.</p>
-            <img src="assets/back.gif" class="feature-gif" alt="Background Change Demo" loading="lazy" />
-        </div>
-
-        <!-- Feature: Face Expression Edit -->
-        <div class="section">
-            <h2>Face Expression Edit</h2>
-            <p>Edit facial expressions in one tap — subtle, natural, and identity-safe.</p>
-            <img src="assets/face.gif" class="feature-gif" alt="Face Expression Edit Demo" loading="lazy" />
-        </div>
-
-        <!-- Footer -->
-        <div class="footer">
-            <p>Built by Romain — CosplayAI © All rights reserved</p>
-        </div>
-
     </div>
 
+    <!-- Bottom CTA -->
+    <div class="cta-section">
+        <div class="container">
+            <div class="cta-box">
+                <h2 style="font-size: 2.5rem; margin-bottom: 20px;">Ready to create?</h2>
+                <p style="margin-bottom: 30px; color: var(--text-muted);">
+                    Join 2,000+ creators waiting to upgrade their content workflow.
+                </p>
+                <a class="btn" href="YOUR_WAITLIST_LINK_HERE" target="_blank" style="padding: 18px 50px; font-size: 1.2rem;">
+                    Get Early Access Now
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>Built by Orion — CosplayAI © 2023. All rights reserved.</p>
+        <div style="margin-top: 10px; opacity: 0.5;">
+            <a href="#" style="color: inherit; margin: 0 10px; text-decoration: none;">Twitter</a>
+            <a href="#" style="color: inherit; margin: 0 10px; text-decoration: none;">Instagram</a>
+            <a href="#" style="color: inherit; margin: 0 10px; text-decoration: none;">Contact</a>
+        </div>
+    </footer>
+
+    <!-- Scroll Animation Script -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const observerOptions = {
+                threshold: 0.1
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("visible");
+                    }
+                });
+            }, observerOptions);
+
+            const elements = document.querySelectorAll('.scroll-reveal');
+            elements.forEach(el => observer.observe(el));
+        });
+    </script>
 </body>
 </html>
