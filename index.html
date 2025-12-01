@@ -87,17 +87,20 @@
             box-shadow: 0 0 35px var(--accent-glow);
         }
 
-        /* --- NAV --- */
+        /* --- NAV & LOGO --- */
         nav {
             padding: 24px 0;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
-        .logo {
-            font-weight: 800;
-            font-size: 1.5rem;
-            letter-spacing: -0.05em;
+        
+        /* Style pour le logo image */
+        .nav-logo {
+            height: 48px; /* Hauteur ajustable selon ton logo */
+            width: auto;
+            display: block;
+            object-fit: contain;
         }
 
         /* --- HERO SECTION --- */
@@ -157,11 +160,11 @@
         }
 
         .feature-row.reverse {
-            direction: rtl; /* Flip order for zigzag effect */
+            direction: rtl;
         }
         
         .feature-row.reverse .feature-text {
-            direction: ltr; /* Reset text direction */
+            direction: ltr;
         }
 
         .feature-text h2 {
@@ -186,7 +189,7 @@
             border: 1px solid var(--border-color);
         }
 
-        /* --- MEDIA CONTAINER (PHONE MOCKUP LOOK) --- */
+        /* --- MEDIA CONTAINER --- */
         .media-wrapper {
             position: relative;
             border-radius: 20px;
@@ -246,6 +249,7 @@
 
         /* --- RESPONSIVE --- */
         @media (max-width: 768px) {
+            .nav-logo { height: 36px; } /* Logo plus petit sur mobile */
             .hero h1 { font-size: 2.5rem; }
             .feature-row { 
                 grid-template-columns: 1fr; 
@@ -263,9 +267,11 @@
 
     <div class="container">
         
-        <!-- Navigation -->
+        <!-- Navigation avec LOGO -->
         <nav>
-            <div class="logo">Cosplay<span class="highlight">AI</span></div>
+            <!-- Remplace "logo.png" par l'extension exacte (png, svg, jpg) si différente -->
+            <img src="assets/logo.png" alt="CosplayAI Logo" class="nav-logo">
+            
             <a href="YOUR_WAITLIST_LINK_HERE" class="btn" style="padding: 10px 24px; font-size: 0.9rem;">Waitlist</a>
         </nav>
 
@@ -306,7 +312,6 @@
                     </div>
                 </div>
                 <div class="media-wrapper">
-                    <!-- Placeholder: Ensure your gif is in assets/outfit.gif -->
                     <img src="assets/outfit.gif" class="feature-gif" alt="Outfit Replacement AI" loading="lazy" />
                 </div>
             </div>
@@ -381,7 +386,7 @@
     </div>
 
     <footer>
-        <p>Built by Orion — CosplayAI © 2023. All rights reserved.</p>
+        <p>Built by Orionextension — CosplayAI © 2023. All rights reserved.</p>
         <div style="margin-top: 10px; opacity: 0.5;">
             <a href="#" style="color: inherit; margin: 0 10px; text-decoration: none;">Twitter</a>
             <a href="#" style="color: inherit; margin: 0 10px; text-decoration: none;">Instagram</a>
